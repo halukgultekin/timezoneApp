@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_timezone_app/constants/constants.dart';
-import 'package:flutter_timezone_app/screens/main_screen.dart';
+import 'package:flutter_timezone_app/screens/splash_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Hive.initFlutter();
   await Hive.openBox('darkMode');
   runApp(const MyApp());
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
                   centerTitle: true, color: Constats.kBackGroundLightColor),
             ),
             darkTheme: ThemeData.dark().copyWith(),
-            home: MainScreen(),
+            home: SplashScreen(),
           );
         });
   }
