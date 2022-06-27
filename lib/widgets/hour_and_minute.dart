@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../constants/constants.dart';
+import '../constants.dart';
 
 class HourAndMinute extends StatelessWidget {
   const HourAndMinute({
@@ -15,8 +15,7 @@ class HourAndMinute extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              border:
-                  Border.all(color: Constats.kBackGroundDarkColor, width: 2),
+              border: Border.all(color: kTextColor, width: 2),
               borderRadius: BorderRadius.all(Radius.circular(14))),
           height: 140,
           width: 140,
@@ -27,18 +26,16 @@ class HourAndMinute extends StatelessWidget {
                 textStyle: TextStyle(
                     fontSize: 79,
                     fontWeight: FontWeight.w600,
-                    color: Constats.kBackGroundDarkColor)),
+                    color: kTextColor)),
           )),
         ),
         Container(
             child: Text(':',
                 style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                        fontSize: 79, color: Constats.kBackGroundDarkColor)))),
+                    textStyle: TextStyle(fontSize: 79, color: kTextColor)))),
         Container(
           decoration: BoxDecoration(
-              border:
-                  Border.all(color: Constats.kBackGroundDarkColor, width: 2),
+              border: Border.all(color: kTextColor, width: 2),
               borderRadius: BorderRadius.all(Radius.circular(14))),
           height: 140,
           width: 140,
@@ -48,7 +45,7 @@ class HourAndMinute extends StatelessWidget {
                     textStyle: TextStyle(
                         fontSize: 79,
                         fontWeight: FontWeight.w600,
-                        color: Constats.kBackGroundDarkColor))),
+                        color: kTextColor))),
           ),
         )
       ],

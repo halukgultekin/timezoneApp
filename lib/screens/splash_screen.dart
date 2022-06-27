@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_timezone_app/screens/main_screen.dart';
+import 'package:flutter_timezone_app/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,10 +13,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     Timer(
         Duration(seconds: 3),
         (() => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainScreen()))));
+            context, MaterialPageRoute(builder: (context) => HomeScreen()))));
   }
 
   @override
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
             color: Color.fromARGB(255, 0, 35, 89),
           ),
           child: Image.asset(
-            'assets/DOP logo.png',
+            'assets/images/DOP logo.png',
             height: 133,
             width: 200,
           )),

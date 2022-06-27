@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_timezone_app/constants/constants.dart';
+import 'package:flutter_timezone_app/constants.dart';
+import 'package:flutter_timezone_app/constants.dart';
+import 'package:flutter_timezone_app/screens/home_screen.dart';
 import 'package:flutter_timezone_app/screens/splash_screen.dart';
+import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
@@ -9,6 +12,7 @@ Future<void> main() async {
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Hive.initFlutter();
   await Hive.openBox('darkMode');
+
   runApp(const MyApp());
 }
 
@@ -29,7 +33,9 @@ class MyApp extends StatelessWidget {
                 : ThemeMode.light,
             theme: ThemeData.light().copyWith(
               appBarTheme: AppBarTheme(
-                  centerTitle: true, color: Constats.kBackGroundLightColor),
+                  iconTheme: IconThemeData(color: kTextColor),
+                  centerTitle: true,
+                  color: kPrimaryColor),
             ),
             darkTheme: ThemeData.dark().copyWith(),
             home: SplashScreen(),
