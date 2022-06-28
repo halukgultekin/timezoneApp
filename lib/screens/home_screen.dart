@@ -4,7 +4,6 @@ import 'package:flutter_timezone_app/screens/details_screen.dart';
 import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -163,7 +162,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               )));
                                 },
                                 title: Text(
-                                  sehirlistesi?[index],
+                                  sehirlistesi![index]
+                                      .toString()
+                                      .replaceAll('/', ', ')
+                                      .replaceAll('_', ' '),
                                   style: GoogleFonts.montserrat(
                                       color: kTextColor, fontSize: 15),
                                 ))),

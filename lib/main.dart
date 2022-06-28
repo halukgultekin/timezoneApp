@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               appBarTheme: AppBarTheme(
                   iconTheme: IconThemeData(color: kTextColor),
                   centerTitle: true,
-                  color: kPrimaryColor),
+                  color: Colors.white),
             ),
             darkTheme: ThemeData.dark().copyWith(),
             home: SplashScreen(),

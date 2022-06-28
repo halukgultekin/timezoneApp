@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_timezone_app/model/city_model.dart';
 import 'package:flutter_timezone_app/model/timezone_model.dart';
 import 'package:http/http.dart' as http;
