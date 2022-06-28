@@ -3,6 +3,9 @@ import 'package:flutter_timezone_app/constants.dart';
 import 'package:flutter_timezone_app/screens/details_screen.dart';
 import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,17 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
     getData();
   }
 
-  getData() async {
-    sehirlistesi = await RemoteService().getCityData();
-    if (sehirlistesi != null) {
-      setState(() {
-        isloaded = true;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    String localTime = DateFormat('HH:mm').format(DateTime.now());
+    String localDate = DateFormat.MMMMd('tr').format(DateTime.now());
+    String localDay = DateFormat.EEEE('tr').format(DateTime.now());
+
+    var darkMode = Hive.box("darkMode").get("themeMode", defaultValue: false);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
@@ -40,6 +39,75 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * 0.272,
             child: Stack(children: [
               Container(
+                padding: EdgeInsets.only(
+                    top: 66, left: kDefaultPadding, right: kDefaultPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          greetingMessage() + ", Özgür!",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          localTime,
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '$localDate, $localDay',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(77, 0, 9, 55),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(30.0))),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Hive.box("darkMode").get("themeMode") == true
+                                ? Colors.white
+                                : Color.fromARGB(238, 1, 18, 104),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30.0))),
+                        child: IconButton(
+                          icon: Hive.box("darkMode").get("themeMode") == true
+                              ? Icon(
+                                  Icons.light_mode_outlined,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  Icons.dark_mode_outlined,
+                                  color: Colors.white,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              if (Hive.box("darkMode").get("themeMode") ==
+                                  true) {
+                                darkMode = Hive.box("darkMode")
+                                    .put("themeMode", false);
+                              } else {
+                                darkMode =
+                                    Hive.box("darkMode").put("themeMode", true);
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 height: size.height * 0.272 - 22,
                 decoration: BoxDecoration(
                     color: kPrimaryColor,
@@ -65,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: kTextColor, fontSize: 12),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
+                          contentPadding: const EdgeInsets.all(16),
                           prefixIcon: Image.asset('assets/icons/search.png')),
                     ),
                   ))
@@ -126,5 +195,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  getData() async {
+    sehirlistesi = await RemoteService().getCityData();
+    if (sehirlistesi != null) {
+      setState(() {
+        isloaded = true;
+      });
+    }
+  }
+
+  String greetingMessage() {
+    var timeNow = DateTime.now().hour;
+
+    if (timeNow >= 5 && timeNow <= 12) {
+      return 'Günaydın';
+    } else if (timeNow > 12 && timeNow <= 16) {
+      return 'Tünaydın';
+    } else if (timeNow > 16 && timeNow < 20) {
+      return 'İyi Akşamlar';
+    } else {
+      return 'İyi Geceler';
+    }
   }
 }
