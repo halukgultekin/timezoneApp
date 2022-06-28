@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone_app/constants.dart';
 import 'package:flutter_timezone_app/screens/details_screen.dart';
@@ -154,12 +156,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: kPrimaryColor,
                             child: ListTile(
                                 onTap: () {
+                                  Hive.box("selectedCity").put(
+                                      "selectedCountrt",
+                                      sehirlistesi?[index].toString());
+
+                                  debugPrint(Hive.box("selectedCity")
+                                      .get("selectedCountrt"));
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TimeZoneDetails(
-                                                city: sehirlistesi?[index],
-                                              )));
+                                          builder: (context) =>
+                                              TimeZoneDetails()));
                                 },
                                 title: Text(
                                   sehirlistesi![index]
@@ -178,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Border.all(width: 3, color: Colors.white),
                                   shape: BoxShape.circle,
                                   color: kPrimaryColor),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.arrow_forward_ios,
                                 size: 15,
                                 color: kTextColor,

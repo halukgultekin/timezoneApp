@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,6 +10,7 @@ Future<void> main() async {
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Hive.initFlutter();
   await Hive.openBox('darkMode');
+  await Hive.openBox('selectedCity');
 
   runApp(const MyApp());
 }
