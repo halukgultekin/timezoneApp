@@ -1,10 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone_app/constants.dart';
-import 'package:flutter_timezone_app/constants.dart';
-import 'package:flutter_timezone_app/screens/home_screen.dart';
 import 'package:flutter_timezone_app/screens/splash_screen.dart';
-import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
@@ -24,8 +24,9 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder(
         valueListenable: Hive.box('darkMode').listenable(),
         builder: (context, Box box, widget) {
-          // var darkMode = ;
           return MaterialApp(
+            localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+            supportedLocales: [const Locale('en'), const Locale('tr')],
             debugShowCheckedModeBanner: false,
             title: 'Timezone App',
             themeMode: box.get('themeMode', defaultValue: false)

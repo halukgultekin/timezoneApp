@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_timezone_app/constants.dart';
 import 'package:flutter_timezone_app/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 0, 35, 89),
+          decoration: const BoxDecoration(
+            color: kTextColor,
           ),
           child: Image.asset(
             'assets/images/DOP logo.png',
