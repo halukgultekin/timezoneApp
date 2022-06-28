@@ -37,7 +37,10 @@ class MyApp extends StatelessWidget {
                   centerTitle: true,
                   color: Colors.white),
             ),
-            darkTheme: ThemeData.dark().copyWith(),
+            darkTheme: ThemeData.dark().copyWith(
+                appBarTheme: AppBarTheme(centerTitle: true, color: kTextColor),
+                scaffoldBackgroundColor: kTextColor,
+                cardColor: kdarkColor),
             home: SplashScreen(),
           );
         });

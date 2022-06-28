@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone_app/constants.dart';
-import 'package:flutter_timezone_app/screens/details_screen.dart';
+import 'package:flutter_timezone_app/screens/details_screen/details_screen.dart';
 import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -36,11 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: size.height * 0.272,
             child: Stack(children: [
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                     top: 66, left: kDefaultPadding, right: kDefaultPadding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,26 +51,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          greetingMessage() + ", Özgür!",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                          "${greetingMessage()}, Haluk!",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           localTime,
-                          style: TextStyle(
-                              fontSize: 40, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 32, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           '$localDate, $localDay',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
                     Container(
-                      width: 50,
-                      height: 50,
-                      padding: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      padding: EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: Color.fromARGB(77, 0, 9, 55),
                           borderRadius:
@@ -86,10 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           icon: Hive.box("darkMode").get("themeMode") == true
                               ? Icon(
                                   Icons.light_mode_outlined,
+                                  size: 18,
                                   color: Colors.black,
                                 )
                               : Icon(
                                   Icons.dark_mode_outlined,
+                                  size: 18,
                                   color: Colors.white,
                                 ),
                           onPressed: () {
@@ -111,7 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 height: size.height * 0.272 - 22,
                 decoration: BoxDecoration(
-                    color: kPrimaryColor,
+                    color: Hive.box("darkMode").get("themeMode") == false
+                        ? kPrimaryColor
+                        : kdarkColor,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(32),
                         bottomRight: Radius.circular(32))),
@@ -153,7 +157,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             elevation: 0,
-                            color: kPrimaryColor,
+                            color:
+                                Hive.box("darkMode").get("themeMode") == false
+                                    ? kPrimaryColor
+                                    : kdarkColor,
                             child: ListTile(
                                 onTap: () {
                                   Hive.box("selectedCity").put(
@@ -174,21 +181,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .replaceAll('/', ', ')
                                       .replaceAll('_', ' '),
                                   style: GoogleFonts.montserrat(
-                                      color: kTextColor, fontSize: 15),
+                                      color: Hive.box("darkMode")
+                                                  .get("themeMode") ==
+                                              false
+                                          ? kTextColor
+                                          : Colors.white,
+                                      fontSize: 15),
                                 ))),
                         Positioned(
                           top: 15,
                           right: -13,
                           child: Container(
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 3, color: Colors.white),
+                                  border: Border.all(
+                                      width: 3,
+                                      color: Hive.box("darkMode")
+                                                  .get("themeMode") ==
+                                              false
+                                          ? Colors.white
+                                          : kTextColor),
                                   shape: BoxShape.circle,
-                                  color: kPrimaryColor),
-                              child: const Icon(
+                                  color:
+                                      Hive.box("darkMode").get("themeMode") ==
+                                              false
+                                          ? kPrimaryColor
+                                          : kdarkColor),
+                              child: Icon(
                                 Icons.arrow_forward_ios,
                                 size: 15,
-                                color: kTextColor,
+                                color: Hive.box("darkMode").get("themeMode") ==
+                                        false
+                                    ? kTextColor
+                                    : Colors.white,
                               )),
                           height: 31,
                           width: 31,

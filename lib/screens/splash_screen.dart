@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone_app/constants.dart';
-import 'package:flutter_timezone_app/screens/home_screen.dart';
+import 'package:flutter_timezone_app/screens/home_screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

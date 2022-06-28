@@ -3,6 +3,7 @@ import 'package:flutter_timezone_app/constants.dart';
 import 'package:flutter_timezone_app/model/timezone_model.dart';
 import 'package:flutter_timezone_app/services/timezone_api.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class TimeZoneDetails extends StatefulWidget {
@@ -64,10 +65,15 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
               appBar: AppBar(
                 elevation: 0,
                 flexibleSpace: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/WORLD TIME2 1.png')),
-                      color: kPrimaryColor,
+                          image: Hive.box("darkMode").get("themeMode") == false
+                              ? AssetImage('assets/images/WORLD TIME2 1.png')
+                              : AssetImage(
+                                  'assets/images/WORLD TIME white.png')),
+                      color: Hive.box("darkMode").get("themeMode") == false
+                          ? kPrimaryColor
+                          : kdarkColor,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(32),
                           bottomRight: Radius.circular(32))),
@@ -80,14 +86,24 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.only(top: 50),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
+                                        color: Hive.box("darkMode")
+                                                    .get("themeMode") ==
+                                                false
+                                            ? Colors.white
+                                            : kdarkColor,
                                         border: Border.all(
-                                            color: kTextColor, width: 2),
+                                            color: Hive.box("darkMode")
+                                                        .get("themeMode") ==
+                                                    false
+                                                ? kTextColor
+                                                : kdarkColor,
+                                            width: 2),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(14))),
                                     height: 140,
@@ -99,19 +115,41 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
                                           textStyle: TextStyle(
                                               fontSize: 79,
                                               fontWeight: FontWeight.w600,
-                                              color: kTextColor)),
+                                              color: Hive.box("darkMode")
+                                                          .get("themeMode") ==
+                                                      false
+                                                  ? kTextColor
+                                                  : Colors.white)),
                                     )),
                                   ),
-                                  Container(
-                                      child: Text(':',
-                                          style: GoogleFonts.montserrat(
-                                              textStyle: TextStyle(
-                                                  fontSize: 79,
-                                                  color: kTextColor)))),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        child: Text(':',
+                                            style: GoogleFonts.montserrat(
+                                                textStyle: TextStyle(
+                                                    fontSize: 79,
+                                                    color: Hive.box("darkMode")
+                                                                .get(
+                                                                    "themeMode") ==
+                                                            false
+                                                        ? kTextColor
+                                                        : Colors.white)))),
+                                  ),
                                   Container(
                                     decoration: BoxDecoration(
+                                        color: Hive.box("darkMode")
+                                                    .get("themeMode") ==
+                                                false
+                                            ? Colors.white
+                                            : kdarkColor,
                                         border: Border.all(
-                                            color: kTextColor, width: 2),
+                                            color: Hive.box("darkMode")
+                                                        .get("themeMode") ==
+                                                    false
+                                                ? kTextColor
+                                                : kdarkColor,
+                                            width: 2),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(14))),
                                     height: 140,
@@ -122,28 +160,42 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
                                               textStyle: TextStyle(
                                                   fontSize: 79,
                                                   fontWeight: FontWeight.w600,
-                                                  color: kTextColor))),
+                                                  color: Hive.box("darkMode")
+                                                              .get(
+                                                                  "themeMode") ==
+                                                          false
+                                                      ? kTextColor
+                                                      : Colors.white))),
                                     ),
                                   )
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding:
+                                  const EdgeInsets.only(top: 28, bottom: 10),
                               child: Column(
                                 children: [
-                                  Text(clist[0],
+                                  Text(clist[1],
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 24,
-                                              color: kTextColor))),
-                                  Text(clist[1],
+                                              color: Hive.box("darkMode")
+                                                          .get("themeMode") ==
+                                                      false
+                                                  ? kTextColor
+                                                  : Colors.white))),
+                                  Text(clist[0],
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 20,
-                                              color: kTextColor))),
+                                              color: Hive.box("darkMode")
+                                                          .get("themeMode") ==
+                                                      false
+                                                  ? kTextColor
+                                                  : Colors.white))),
                                 ],
                               ),
                             ),
@@ -159,7 +211,11 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
                                           textStyle: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 18,
-                                              color: kTextColor))),
+                                              color: Hive.box("darkMode")
+                                                          .get("themeMode") ==
+                                                      false
+                                                  ? kTextColor
+                                                  : Colors.white))),
                                   Text(
                                       selectedTimezoneDay +
                                           ', ' +
@@ -168,7 +224,11 @@ class _TimeZoneDetailsState extends State<TimeZoneDetails> {
                                           textStyle: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 18,
-                                              color: kTextColor)))
+                                              color: Hive.box("darkMode")
+                                                          .get("themeMode") ==
+                                                      false
+                                                  ? kTextColor
+                                                  : Colors.white)))
                                 ],
                               ),
                             ),
